@@ -17,6 +17,7 @@ use Tables\Columns\CheckboxColumn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PostResource\Pages;
+use Forms\Components\SpatieMediaLibraryFileUpload;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
 
@@ -42,7 +43,9 @@ class PostResource extends Resource
                 Forms\Components\Checkbox::make('is_published'),
                 Forms\Components\Hidden::make('user_id')
                     ->dehydrateStateUsing(fn () => Auth::id()),
-
+                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                            ->image()
+                            ->imageEditor(),
             ]);
 
     }
