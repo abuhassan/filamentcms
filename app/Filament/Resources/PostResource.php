@@ -45,7 +45,11 @@ class PostResource extends Resource
                     ->dehydrateStateUsing(fn () => Auth::id()),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                             ->image()
+                            ->optimize('webp')
                             ->imageEditor(),
+                Forms\Components\Select::make('categories')
+                            ->multiple()
+                            ->relationship('categories', 'title')
             ]);
 
     }
