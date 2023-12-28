@@ -25,7 +25,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
     public static function form(Form $form): Form
     {
@@ -41,6 +41,7 @@ class PostResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('meta_description'),
                 Forms\Components\Checkbox::make('is_published'),
+                Forms\Components\Checkbox::make('is_featured'),
                 Forms\Components\Hidden::make('user_id')
                     ->dehydrateStateUsing(fn () => Auth::id()),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('image')
