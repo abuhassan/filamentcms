@@ -27,7 +27,11 @@ class CategoryResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('slug')
                     ->required(),
-                Forms\Components\Textarea::make('content')
+                Forms\Components\RichEditor::make('content'),
+                Forms\Components\ColorPicker::make('bg_color')
+                    ->label('Background Color'),
+                Forms\Components\ColorPicker::make('text_color')
+                    ->label('Text Color'),
 
             ]);
     }

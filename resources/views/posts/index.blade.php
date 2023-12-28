@@ -8,6 +8,15 @@
                 <div class="mb-5">
                     <img src="{{ $post->getFirstMediaUrl() }}" class="w-full "/>
                 </div>
+                <div class="mb-5">
+                    @foreach($post->categories as $category)
+
+                        <span
+                        style="background-color: {{ $category->bg_color }}; color: {{ $category->text_color }};"
+
+                        class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $category->title }}</span>
+                    @endforeach
+                </div>
                 <header class="mb-4 lg:mb-6 not-format">
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">

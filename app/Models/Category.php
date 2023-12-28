@@ -16,6 +16,8 @@ class Category extends Model
         'slug',
         'meta_description',
         'is_published',
-        'user_id'
+        'user_id',
+        'bg_color',
+        'text_color'
     ];
 }
