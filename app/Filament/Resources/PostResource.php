@@ -7,6 +7,7 @@ use App\Models\Post;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+
 use Forms\Components\Hidden;
 use Forms\Components\Checkbox;
 use Tables\Columns\TextColumn;
@@ -15,6 +16,9 @@ use Filament\Resources\Resource;
 use Forms\Components\RichEditor;
 use Tables\Columns\CheckboxColumn;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Mail\Mailables\Content;
+use Filament\Forms\Components\Tabs\Tab;
+
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PostResource\Pages;
 use Forms\Components\SpatieMediaLibraryFileUpload;
@@ -31,27 +35,34 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->minLength(2),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->minLength(2),
-                Forms\Components\RichEditor::make('content')
-                    ->required(),
-                Forms\Components\TextInput::make('meta_description'),
-                Forms\Components\Checkbox::make('is_published'),
-                Forms\Components\Checkbox::make('is_featured'),
-                Forms\Components\Hidden::make('user_id')
-                    ->dehydrateStateUsing(fn () => Auth::id()),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
-                            ->image()
-                            ->optimize('webp')
-                            ->imageEditor(),
-                Forms\Components\Select::make('categories')
-                            ->multiple()
-                            ->relationship('categories', 'title')
-            ]);
+                Forms\Components\Tabs::make('post')->tabs([
+                    Tab::make('Content')->schema         ([Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->minLength(2),
+                    Forms\Components\TextInput::make('slug')
+                        ->required()
+                        ->minLength(2),
+                    Forms\Components\RichEditor::make('content')
+                        ->required(),
+                    Forms\Components\TextInput::make('meta_description'),
+                    Forms\Components\Checkbox::make('is_published'),
+                    Forms\Components\Checkbox::make('is_featured'),
+                    Forms\Components\Hidden::make('user_id')
+                        ->dehydrateStateUsing(fn () => Auth::id()),
+
+                    Forms\Components\Select::make('categories')
+                        ->multiple()
+                        ->relationship('categories', 'title')
+                ]),
+                    Tab::make('Meta')->schema([
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                        ->image()
+                        ->optimize('webp')
+                        ->imageEditor(),
+                        Forms\Components\TextInput::make('meta_description'),
+                    ]),
+                ])
+            ])->columns(1);
 
     }
 
