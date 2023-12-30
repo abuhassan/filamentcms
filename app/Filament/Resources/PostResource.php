@@ -71,11 +71,11 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('thumbnail'),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('slug')->searchable(),
                 Tables\Columns\CheckboxColumn::make('is_featured'),
                 Tables\Columns\CheckboxColumn::make('is_published'),
-                Tables\Columns\TextColumn::make('categories.title')->badge()
+                Tables\Columns\TextColumn::make('categories.title')->searchable()->badge()
             ])
             ->filters([
                 Tables\Filters\Filter::make('is_featured')->label('Featured')->query(fn (Builder $query): Builder => $query->where('is_featured', true)),

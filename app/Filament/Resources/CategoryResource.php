@@ -42,7 +42,10 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\ColorColumn::make('bg_color'),
+                Tables\Columns\ColorColumn::make('text_color')
             ])
+
             ->filters([
                 //
             ])
